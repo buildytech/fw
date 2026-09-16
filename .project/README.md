@@ -1,3 +1,25 @@
 # .project
 
-Operator notes for this repository. See `intent.md` when present.
+Operator notes for BuildY Framework (`fw`). These documents are the source
+of intent; the repository root README is the public summary.
+
+| Document | Scope |
+| --- | --- |
+| [`intent.md`](intent.md) | Purpose, scope boundary, success criteria, anti-goals |
+| [`architecture.md`](architecture.md) | Three layers, manifest, generator, conformance, topology |
+| [`capabilities.md`](capabilities.md) | Port catalog and contract obligations |
+| [`roadmap.md`](roadmap.md) | Phases M0–M5 with exit criteria |
+
+## Working rules
+
+- English only in this repository.
+- Brand-neutral core: no customer, mascot, or product names in the contract.
+- No adapter code lands here. This repository holds spec, conformance, CLI,
+  templates, and documentation.
+- A capability is not published until it has a conformance suite.
+- Prefer removing a port over weakening its invariants.
+
+## Decisions
+
+Architecture decisions live in `decisions/` as numbered records once the
+first contract package exists. Until then this folder is the record.
