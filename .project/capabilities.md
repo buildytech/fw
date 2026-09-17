@@ -14,7 +14,7 @@ Rule: a capability is published only when its conformance suite exists.
 | `ui` | primitives and screens | `ui-solid`, `ui-react`, `ui-latte`, `ui-templ` | planned, M1 |
 | `delivery` | packaged artifact and its layout | `portable-windows`, `installer`, `image` | planned, M1 |
 | `host` | window, process, IPC | `host-wails-go`, `host-tauri-rust`, `host-cli` | planned, M2 |
-| `editor` | text buffer, syntax, selection | `editor-codemirror` | planned, M2 |
+| `editor` | buffer/document value, selection, change and lifetime | `editor-textarea`, `editor-editory` | planned, M2 |
 | `explorer` | tree of the workspace | `explorer-default` | planned, M2 |
 | `vcs` | history, staging, diff | `vcs-git-cli` | planned, M4 |
 | `agent` | closed event bus for assisted work | `agent-cursor-node` | planned, M4 |
@@ -44,10 +44,10 @@ publication.
 revision checks precede writes; a product must not add a second content
 API. Most other capabilities resolve their paths through it.
 
-`ui` delegates to a generator rather than defining components. The proven
-model is one definition per primitive, one printer per runtime, and parity
-tests over a canonical DOM. A product selects one UI runtime; the core
-knows several, the product knows one.
+`ui` does not require a framework or ship primitives. It records one selected
+runtime and generated-file ownership. External generators such as UI8Kit
+Codegen are registry records, not FW code. A product resolves exactly one
+runtime.
 
 `agent` is a bus, not an SDK. The event set is closed. Bridges are
 adapters, at most one live per session, and the presentation layer never
@@ -73,7 +73,7 @@ per-user profile.
 2. Write the conformance suite before any adapter.
 3. Implement two adapters in different languages.
 4. Prove a product can omit the capability entirely.
-5. Register the port in the manifest schema and the CLI.
+5. Register the port in the manifest schema. `fwyml` consumes that schema.
 
 Step four is the acceptance test for modularity. If omission is not
 possible, the port is wrongly scoped.

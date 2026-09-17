@@ -32,19 +32,23 @@ Deliverables:
 Exit: a non-Go adapter passes `workspace` conformance without the core
 authors modifying the suite.
 
-## M2 — Generator
+## M2 — Schemas consumed by `fwyml`
 
-The CLI that turns a manifest into a composition root.
+Publish the schemas and registry kinds that `fwyml` compiles. Materialization
+commands live only in `buildytech/fwyml`.
 
 Deliverables:
 
-- manifest schema and validation
-- `fw new`, `fw sync`, `fw verify`
-- two product templates: a desktop host with a TypeScript UI runtime, and a
-  server-rendered host with a PHP UI runtime
+- product-manifest, registry-envelope, lock, and harness-result schemas
+- registry kinds for capability, adapter, generator, validator, guidance,
+  vertical-slice, product-template, and delivery
+- two product-template records: a desktop host with a TypeScript UI runtime,
+  and a server-rendered host with a PHP UI runtime
 
-Exit: both templates build from a manifest alone, and removing a capability
-from the manifest removes it from the generated tree.
+Exit: both templates resolve and build from a manifest through `fwyml` alone,
+and removing a capability from the manifest removes it from the generated
+tree. No document or package in this repository assigns those commands to an
+`fw` executable.
 
 ## M3 — Validation by scenarios
 

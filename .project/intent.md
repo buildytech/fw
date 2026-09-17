@@ -27,12 +27,14 @@ implementations per target, and let a test suite enforce identity.
 
 - a catalog of capability **ports** with DTOs, events, and invariants
 - a **conformance suite** that any implementation can run, in any language
-- a **generator** that produces the composition root of a product
+- **schemas and registry records** that describe adapters, generators,
+  validators, guidance, vertical slices, templates, and delivery
 - a set of reference products, none of which is privileged
 
 `fw` is not:
 
 - a UI framework, an IDE, or an editor
+- a product materializer or CLI (`fwyml` owns those commands)
 - a runtime plugin loader or a module marketplace
 - a dependency injection container for one language
 - a hosting platform or a vendor SDK wrapper
@@ -43,8 +45,8 @@ In scope:
 
 - capability contracts and their versioning
 - cross-language conformance execution over a thin protocol
-- product manifest format and the `fw` CLI that reads it
-- product templates and delivery layouts
+- product manifest, registry, lock, and harness-result schemas
+- registry source records for external artifacts and tools
 - documentation as the primary product
 
 Out of scope:

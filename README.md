@@ -2,14 +2,15 @@
 
 **Architecture, not code. Ports, not dependencies. Choice, not discipline.**
 
-`fw` is a specification of product capabilities plus a generator for the
-composition root. A team describes a product declaratively and gets a
-repository that contains exactly the selected modules, implemented on the
-stack that team already knows.
+`fw` is a specification of product capabilities, registry records, and a
+conformance suite. A team describes a product declaratively; `fwyml` is the
+only CLI that compiles that manifest against this registry into a repository
+containing exactly the selected modules, implemented on the stack that team
+already knows.
 
-This repository ships a contract and a conformance suite. It does not ship
-a runtime plugin loader, a mandatory language, or an application with
-feature switches.
+This repository ships schemas, port specs, registry source, and conformance
+assets. It does not ship a materializer, a runtime plugin loader, a
+mandatory language, or an application with feature switches.
 
 ## The rule that defines everything
 

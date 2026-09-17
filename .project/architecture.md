@@ -55,20 +55,26 @@ delivery: portable-windows
 
 Absent keys mean absent capabilities. There is no `enabled: false`.
 
-## Generator
+## Materializer boundary
 
-The CLI reads the manifest and writes the composition root.
+`buildytech/fwyml` is the only CLI and materializer. It reads an FW product
+manifest plus FW registry data and writes the composition root. This
+repository does not publish an `fw` executable or product-generation
+commands.
 
-| Command | Effect |
+| Command (in `fwyml`) | Effect |
 | --- | --- |
-| `fw new` | scaffold a product repository from the manifest |
-| `fw sync` | reconcile an existing root after a manifest change |
-| `fw verify` | run conformance for the selected capabilities |
-| `fw pack` | produce the delivery artifact through the `delivery` adapter |
+| `fwyml validate` | check a product manifest against FW schemas |
+| `fwyml resolve` | compute the selected graph, absences, and lock proposal |
+| `fwyml sync` | reconcile an existing root after a manifest change |
+| `fwyml verify` | run selected validators and FW conformance |
+| `fwyml context` | emit a grounded pack for an external agent or QA |
+| `fwyml pack` | produce the delivery artifact through the `delivery` adapter |
 
-`fw sync` declares dependencies; it does not vendor adapter source into the
-product. Removing a capability from the manifest removes generated glue and
-the dependency, and `fw verify` then fails if product code still references
+`fwyml sync` declares dependencies from registry records; it does not vendor
+adapter source into the product unless a record's source kind says so.
+Removing a capability from the manifest removes owned glue and the
+dependency, and `fwyml verify` then fails if product code still references
 the port.
 
 ## Conformance as the gate
@@ -92,7 +98,8 @@ applies.
 
 | Repository | Contents |
 | --- | --- |
-| `buildytech/fw` | contract, conformance, CLI, templates, documentation |
+| `buildytech/fw` | schemas, port specs, registry source, conformance, documentation |
+| `buildytech/fwyml` | generic CLI, resolver, materializer, lock, context pack |
 | `buildytech/fw-adapters-<family>` | adapters grouped by language or platform |
 | `buildytech/fw-examples` | reference products, including the desktop IDE |
 | studio repositories | product manifests and product code |
