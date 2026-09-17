@@ -30,18 +30,23 @@ Absence is physical. There is no `if !enabled`.
 ## Product manifest
 
 ```yaml
-product: wp-theme-studio
-contract: 1.x
-capabilities:
-  workspace: { adapter: fs-local }
-  ui:        { adapter: ui-latte }
-  host:      { adapter: host-php-cli }
-  preview:   { adapter: pack-nginx-mariadb }
-  # git, agent, terminal, browse are absent
-delivery: portable-windows
+schemaVersion: fw.buildy.tech/v0alpha1
+kind: Product
+metadata:
+  name: example-product
+composition:
+  capabilities:
+    workspace: { use: workspace-local, contractRange: ">=1 <2" }
+    ui: { use: ui-runtime }
+    host: { use: host-desktop }
+constraints:
+  required: [desktop]
+  forbidden: [agent]
 ```
 
-The manifest is the only place where concrete technologies meet.
+The manifest selects records without embedding package versions. Exact source
+references, artifact versions, and SHA-256 digests live in registry records
+and the generated lock.
 
 ## Planning documents
 

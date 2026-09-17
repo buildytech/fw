@@ -43,17 +43,25 @@ acceptable inside a single adapter, never as the product boundary.
 One human- and machine-readable file at the product root:
 
 ```yaml
-product: wp-theme-studio
-contract: 1.x
-capabilities:
-  workspace: { adapter: fs-local }
-  ui:        { adapter: ui-latte }
-  host:      { adapter: host-php-cli }
-  preview:   { adapter: pack-nginx-mariadb }
-delivery: portable-windows
+schemaVersion: fw.buildy.tech/v0alpha1
+kind: Product
+metadata:
+  name: example-product
+composition:
+  capabilities:
+    workspace: { use: workspace-local, contractRange: ">=1 <2" }
+    ui: { use: ui-runtime }
+    host: { use: host-desktop }
+  slices: []
+constraints:
+  required: [desktop]
+  forbidden: [agent]
 ```
 
-Absent keys mean absent capabilities. There is no `enabled: false`.
+The manifest selects registry records; it does not name package versions or
+implementations. Exact artifacts, source references, and digests are resolved
+into the lock. Absent keys mean absent capabilities. There is no `enabled:
+false`.
 
 ## Materializer boundary
 
@@ -69,13 +77,13 @@ commands.
 | `fwyml sync` | reconcile an existing root after a manifest change |
 | `fwyml verify` | run selected validators and FW conformance |
 | `fwyml context` | emit a grounded pack for an external agent or QA |
-| `fwyml pack` | produce the delivery artifact through the `delivery` adapter |
 
 `fwyml sync` declares dependencies from registry records; it does not vendor
 adapter source into the product unless a record's source kind says so.
 Removing a capability from the manifest removes owned glue and the
-dependency, and `fwyml verify` then fails if product code still references
-the port.
+dependency only when the former outputs still match their recorded ownership
+digests. `fwyml verify` first checks the persisted lock against the manifest,
+registry snapshot, and materialization plan, then runs selected validators.
 
 ## Conformance as the gate
 
@@ -112,7 +120,8 @@ repository governed by rules.
 
 The contract uses semantic versioning independently of any adapter. Each
 capability is versioned separately, for example `workspace@1` and
-`agent@0`. A product pins a range.
+`agent@0`. A product may pin a capability contract range; records supply exact
+artifact versions and source digests to the lock.
 
 | Change | Level |
 | --- | --- |
@@ -121,6 +130,10 @@ capability is versioned separately, for example `workspace@1` and
 | New adapter idiom or internal rewrite | not a contract event |
 
 Experimental ports stay at major zero and carry no compatibility promise.
+
+Record features, platforms, and runtimes are generic compatibility terms. They
+may satisfy required or forbidden product constraints, but do not add a port
+or teach FW an implementation name.
 
 ## Ownership boundaries carried over from practice
 

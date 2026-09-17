@@ -32,3 +32,15 @@ cases:
       - owned files gone
       - owned dependencies gone
       - physical absence of the dropped surface
+      - user-modified former outputs produce a conflict
+  - id: compatibility-selection
+    observes:
+      - selected adapters satisfy declared contract ranges
+      - required compatibility terms are provided by selected records
+      - forbidden compatibility terms are physically absent
+      - conflicting exact dependency versions fail before materialization
+  - id: lock-replay
+    observes:
+      - persisted lock binds semantic manifest and registry snapshot digests
+      - persisted lock binds the materialization plan digest
+      - verification does not execute external validators when lock replay fails
