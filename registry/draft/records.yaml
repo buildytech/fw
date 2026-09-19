@@ -117,10 +117,12 @@ records:
       - languages
     readiness: draft
     source:
-      kind: local
-      path: ../../ide/.modules/desktop
+      kind: git
+      repository: https://github.com/buildytech/ide.git
+      commit: 85082e7c93742ff0e5fed8ff9151bc4a1f4c552c
+      subpath: .modules/desktop
       module: github.com/fastygo/modules/desktop
-      portable: false
+      portable: true
     go:
       module: github.com/fastygo/modules/desktop
       require: v0.0.0
@@ -142,10 +144,12 @@ records:
       - desktop-presentation-go
     readiness: draft
     source:
-      kind: local
-      path: ../../ide/.modules/wails
+      kind: git
+      repository: https://github.com/buildytech/ide.git
+      commit: 85082e7c93742ff0e5fed8ff9151bc4a1f4c552c
+      subpath: .modules/wails
       module: github.com/fastygo/modules/wails
-      portable: false
+      portable: true
     go:
       module: github.com/fastygo/modules/wails
       require: v0.0.0
@@ -166,10 +170,12 @@ records:
       - delivery
     readiness: draft
     source:
-      kind: local
-      path: ../../ide/.modules/portable
+      kind: git
+      repository: https://github.com/buildytech/ide.git
+      commit: 85082e7c93742ff0e5fed8ff9151bc4a1f4c552c
+      subpath: .modules/portable
       module: github.com/fastygo/modules/portable
-      portable: false
+      portable: true
     go:
       module: github.com/fastygo/modules/portable
       require: v0.0.0
@@ -185,10 +191,12 @@ records:
     version: 0.0.0-draft
     readiness: draft
     source:
-      kind: local
-      path: ../../ide/.modules/process
+      kind: git
+      repository: https://github.com/buildytech/ide.git
+      commit: 85082e7c93742ff0e5fed8ff9151bc4a1f4c552c
+      subpath: .modules/process
       module: github.com/fastygo/modules/process
-      portable: false
+      portable: true
     go:
       module: github.com/fastygo/modules/process
       require: v0.0.0
@@ -202,10 +210,12 @@ records:
       - workspace
     readiness: draft
     source:
-      kind: local
-      path: ../../ide/.modules/workspace
+      kind: git
+      repository: https://github.com/buildytech/ide.git
+      commit: 85082e7c93742ff0e5fed8ff9151bc4a1f4c552c
+      subpath: .modules/workspace
       module: github.com/fastygo/modules/workspace
-      portable: false
+      portable: true
     go:
       module: github.com/fastygo/modules/workspace
       require: v0.0.0
@@ -241,10 +251,12 @@ records:
       - process-go
     readiness: draft
     source:
-      kind: local
-      path: ../../ide/.modules/vcs
+      kind: git
+      repository: https://github.com/buildytech/ide.git
+      commit: 85082e7c93742ff0e5fed8ff9151bc4a1f4c552c
+      subpath: .modules/vcs
       module: github.com/fastygo/modules/vcs
-      portable: false
+      portable: true
     go:
       module: github.com/fastygo/modules/vcs
       require: v0.0.0
@@ -264,10 +276,12 @@ records:
       - workspace
     readiness: draft
     source:
-      kind: local
-      path: ../../ide/.modules/languages
+      kind: git
+      repository: https://github.com/buildytech/ide.git
+      commit: 85082e7c93742ff0e5fed8ff9151bc4a1f4c552c
+      subpath: .modules/languages
       module: github.com/fastygo/modules/languages
-      portable: false
+      portable: true
     go:
       module: github.com/fastygo/modules/languages
       require: v0.0.0
@@ -283,10 +297,12 @@ records:
       - terminal
     readiness: draft
     source:
-      kind: local
-      path: ../../ide/.modules/terminal
+      kind: git
+      repository: https://github.com/buildytech/ide.git
+      commit: 85082e7c93742ff0e5fed8ff9151bc4a1f4c552c
+      subpath: .modules/terminal
       module: github.com/fastygo/modules/terminal
-      portable: false
+      portable: true
     go:
       module: github.com/fastygo/modules/terminal
       require: v0.0.0
@@ -302,10 +318,12 @@ records:
       - userstore
     readiness: draft
     source:
-      kind: local
-      path: ../../ide/.modules/userstore
+      kind: git
+      repository: https://github.com/buildytech/ide.git
+      commit: 85082e7c93742ff0e5fed8ff9151bc4a1f4c552c
+      subpath: .modules/userstore
       module: github.com/fastygo/modules/userstore
-      portable: false
+      portable: true
     go:
       module: github.com/fastygo/modules/userstore
       require: v0.0.0
@@ -321,10 +339,12 @@ records:
       - editor
     readiness: draft
     source:
-      kind: local
-      path: ../../ide/.modules/editor
+      kind: git
+      repository: https://github.com/buildytech/ide.git
+      commit: 85082e7c93742ff0e5fed8ff9151bc4a1f4c552c
+      subpath: .modules/editor
       module: github.com/fastygo/modules/editor
-      portable: false
+      portable: true
     go:
       module: github.com/fastygo/modules/editor
       require: v0.0.0
@@ -337,10 +357,12 @@ records:
     version: 0.0.0-draft
     readiness: draft
     source:
-      kind: local
-      path: ../../ide/.modules/tasks
+      kind: git
+      repository: https://github.com/buildytech/ide.git
+      commit: 85082e7c93742ff0e5fed8ff9151bc4a1f4c552c
+      subpath: .modules/tasks
       module: github.com/fastygo/modules/tasks
-      portable: false
+      portable: true
     go:
       module: github.com/fastygo/modules/tasks
       require: v0.0.0
