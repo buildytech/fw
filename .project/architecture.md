@@ -43,7 +43,7 @@ acceptable inside a single adapter, never as the product boundary.
 One human- and machine-readable file at the product root:
 
 ```yaml
-schemaVersion: fw.buildy.tech/v0alpha1
+schemaVersion: urn:fwyml:manifest:v0alpha1
 kind: Product
 metadata:
   name: example-product
@@ -65,7 +65,7 @@ false`.
 
 ## Materializer boundary
 
-`buildytech/fwyml` is the only CLI and materializer. It reads an FW product
+`fwyml` is the only CLI and materializer. It reads an FW product
 manifest plus registry data and writes the composition root. This
 repository does not publish an `fw` executable or product-generation
 commands. Adapter pins are not stored here.
@@ -106,8 +106,8 @@ applies.
 
 | Repository | Contents |
 | --- | --- |
-| `buildytech/fw` | schemas, port specs, capability records, conformance, documentation |
-| `buildytech/fwyml` | generic CLI, resolver, materializer, lock, context pack |
+| `fw` | schemas, port specs, capability records, conformance, documentation |
+| `fwyml` | generic CLI, resolver, materializer, lock, context pack |
 | external registry | adapter, generator, validator, slice, and delivery pins |
 | studio repositories | product manifests and product code |
 

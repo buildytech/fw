@@ -31,7 +31,7 @@ Absence is physical. There is no `if !enabled`.
 ## Product manifest
 
 ```yaml
-schemaVersion: fw.buildy.tech/v0alpha1
+schemaVersion: urn:fwyml:manifest:v0alpha1
 kind: Product
 metadata:
   name: example-product

@@ -29,7 +29,7 @@ conformance without modifying the suite.
 ## M2 — Schemas consumed by `fwyml`
 
 Publish the schemas and registry kinds that `fwyml` compiles. Materialization
-commands live only in `buildytech/fwyml`. Adapter pins live only in an
+commands live only in `fwyml`. Adapter pins live only in an
 external registry.
 
 Deliverables:
