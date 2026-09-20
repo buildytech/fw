@@ -2,7 +2,7 @@
 
 A capability is a port: DTOs, operations, events, invariants, and a
 conformance suite. A capability is not a package, a feature flag, a stack
-name, or a UI panel.
+name, or a product type.
 
 Rule: a capability is published only when its conformance suite exists.
 Adapters that implement a port live in an external registry.
@@ -11,21 +11,15 @@ Adapters that implement a port live in an external registry.
 
 | Id | Owns | Status |
 | --- | --- | --- |
-| `host` | process, window, IPC | draft |
-| `desktop-presentation` | transport-safe commands, queries, and events | draft |
+| `host` | process lifecycle and presentation transport | draft |
 | `ui` | one selected runtime and generated-file ownership | draft |
 | `workspace` | folder as source of truth, read/write, revisions | draft |
-| `editor` | document value, selection, change, and lifetime | draft |
-| `explorer` | tree of a workspace | draft |
 | `vcs` | history, staging, diff | draft |
 | `agent` | closed event bus for assisted work | draft |
-| `browse` | second native view plus debug protocol | draft |
 | `delivery` | packaged artifact and its layout | draft |
-| `languages` | diagnostics, format, definitions | draft |
-| `terminal` | interactive session scoped to a workspace | draft |
 
-Unselected ports are physically absent. A site, admin, ops console, or
-desktop product selects only the ports it needs.
+Unselected ports are physically absent. Product-specific ports belong in an
+external registry until more than one product family needs them.
 
 ## Contract obligations per capability
 
@@ -51,9 +45,6 @@ registry records, not FW code.
 
 `agent` is a bus, not an SDK. The event set is closed. Bridges are
 adapters. The presentation layer never imports a vendor client.
-
-`browse` documents what the host cannot do. Faking an unsupported capability
-is a defect.
 
 `delivery` owns the on-disk layout of a shipped product, including the
 portable case where state lives beside the executable.
