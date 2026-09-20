@@ -1,30 +1,31 @@
 # Capabilities
 
 A capability is a port: DTOs, operations, events, invariants, and a
-conformance suite. A capability is not a package, a feature flag, or a UI
-panel.
+conformance suite. A capability is not a package, a feature flag, a stack
+name, or a UI panel.
 
 Rule: a capability is published only when its conformance suite exists.
+Adapters that implement a port live in an external registry.
 
 ## Catalog
 
-| Id | Owns | Typical adapters | Status |
-| --- | --- | --- | --- |
-| `workspace` | folder as source of truth, read/write, revisions, search | `fs-local` | planned, M1 |
-| `ui` | primitives and screens | `ui-solid`, `ui-react`, `ui-latte`, `ui-templ` | planned, M1 |
-| `delivery` | packaged artifact and its layout | `portable-windows`, `installer`, `image` | planned, M1 |
-| `host` | window, process, IPC | `host-wails-go`, `host-tauri-rust`, `host-cli` | planned, M2 |
-| `editor` | buffer/document value, selection, change and lifetime | `editor-textarea`, `editor-editory` | planned, M2 |
-| `explorer` | tree of the workspace | `explorer-default` | planned, M2 |
-| `vcs` | history, staging, diff | `vcs-git-cli` | planned, M4 |
-| `agent` | closed event bus for assisted work | `agent-cursor-node` | planned, M4 |
-| `browse` | second native view plus debug protocol | `browse-webview2` | planned, M4 |
-| `pack` | neighbouring processes and their lifecycle | `pack-nginx-mariadb` | planned, M4 |
-| `terminal` | interactive TTY | `terminal-conpty` | backlog |
-| `languages` | diagnostics, format, definitions | `languages-lsp` | backlog |
-| `policy` | permissions for mutating operations | — | backlog |
-| `secrets` | credential storage and redaction | — | backlog |
-| `telemetry` | traces and diagnostics, opt-in | — | backlog |
+| Id | Owns | Status |
+| --- | --- | --- |
+| `host` | process, window, IPC | draft |
+| `desktop-presentation` | transport-safe commands, queries, and events | draft |
+| `ui` | one selected runtime and generated-file ownership | draft |
+| `workspace` | folder as source of truth, read/write, revisions | draft |
+| `editor` | document value, selection, change, and lifetime | draft |
+| `explorer` | tree of a workspace | draft |
+| `vcs` | history, staging, diff | draft |
+| `agent` | closed event bus for assisted work | draft |
+| `browse` | second native view plus debug protocol | draft |
+| `delivery` | packaged artifact and its layout | draft |
+| `languages` | diagnostics, format, definitions | draft |
+| `terminal` | interactive session scoped to a workspace | draft |
+
+Unselected ports are physically absent. A site, admin, ops console, or
+desktop product selects only the ports it needs.
 
 ## Contract obligations per capability
 
@@ -38,40 +39,30 @@ publication.
 5. **Non-obligations** — what the port explicitly refuses to promise.
 6. **Conformance** — scenarios and observable expectations.
 
-## Notes carried from practice
+## Invariants that stay in the contract
 
-`workspace` is the anchor. Files in the opened folder are authoritative;
-revision checks precede writes; a product must not add a second content
-API. Most other capabilities resolve their paths through it.
+`workspace`, when selected, is authoritative for files. A product must not
+add a second content API in the view layer. Other selected capabilities
+resolve paths through it.
 
-`ui` does not require a framework or ship primitives. It records one selected
-runtime and generated-file ownership. External generators such as UI8Kit
-Codegen are registry records, not FW code. A product resolves exactly one
-runtime.
+`ui` does not require a framework or ship primitives. It records one
+selected runtime and generated-file ownership. External generators are
+registry records, not FW code.
 
 `agent` is a bus, not an SDK. The event set is closed. Bridges are
-adapters, at most one live per session, and the presentation layer never
-imports a vendor client.
+adapters. The presentation layer never imports a vendor client.
 
-`browse` is a second native view plus a debug protocol. Contract-level
-honesty matters here: an embedded render host is not a full browser, and
-device emulation is unavailable in that context. The port must document
-the absence instead of simulating it.
-
-`pack` covers neighbouring executables such as a web server and a database
-placed beside the product. It owns start, stop, health, ports, and logs. No
-vertical is named in the contract; a WordPress theme studio is a product
-that selects a `pack` adapter, not a branch inside the core.
+`browse` documents what the host cannot do. Faking an unsupported capability
+is a defect.
 
 `delivery` owns the on-disk layout of a shipped product, including the
-portable case where state lives beside the executable rather than in a
-per-user profile.
+portable case where state lives beside the executable.
 
 ## Adding a capability
 
 1. Write the port document with all six obligations.
 2. Write the conformance suite before any adapter.
-3. Implement two adapters in different languages.
+3. Keep adapter implementations in an external registry.
 4. Prove a product can omit the capability entirely.
 5. Register the port in the manifest schema. `fwyml` consumes that schema.
 

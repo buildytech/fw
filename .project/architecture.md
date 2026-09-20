@@ -66,16 +66,18 @@ false`.
 ## Materializer boundary
 
 `buildytech/fwyml` is the only CLI and materializer. It reads an FW product
-manifest plus FW registry data and writes the composition root. This
+manifest plus registry data and writes the composition root. This
 repository does not publish an `fw` executable or product-generation
-commands.
+commands. Adapter pins are not stored here.
 
 | Command (in `fwyml`) | Effect |
 | --- | --- |
 | `fwyml validate` | check a product manifest against FW schemas |
 | `fwyml resolve` | compute the selected graph, absences, and lock proposal |
+| `fwyml fetch` | acquire selected pinned Git sources |
 | `fwyml sync` | reconcile an existing root after a manifest change |
 | `fwyml verify` | run selected validators and FW conformance |
+| `fwyml generate` | run selected generate-phase tools against a matching lock |
 | `fwyml context` | emit a grounded pack for an external agent or QA |
 
 `fwyml sync` declares dependencies from registry records; it does not vendor
@@ -87,9 +89,7 @@ registry snapshot, and materialization plan, then runs selected validators.
 
 ## Conformance as the gate
 
-The conformance suite is the most valuable asset in this repository. It
-copies the parity approach proven in `@ui8kit/codegen`, where a canonical
-renderer is the executable specification rather than a review convention.
+The conformance suite is the most valuable asset in this repository.
 
 - every port ships reference scenarios and expected observable effects
 - an adapter in any language runs the same suite
@@ -106,10 +106,9 @@ applies.
 
 | Repository | Contents |
 | --- | --- |
-| `buildytech/fw` | schemas, port specs, registry source, conformance, documentation |
+| `buildytech/fw` | schemas, port specs, capability records, conformance, documentation |
 | `buildytech/fwyml` | generic CLI, resolver, materializer, lock, context pack |
-| `buildytech/fw-adapters-<family>` | adapters grouped by language or platform |
-| `buildytech/fw-examples` | reference products, including the desktop IDE |
+| external registry | adapter, generator, validator, slice, and delivery pins |
 | studio repositories | product manifests and product code |
 
 A monorepo is acceptable inside one adapter family. It is not acceptable
@@ -135,18 +134,16 @@ Record features, platforms, and runtimes are generic compatibility terms. They
 may satisfy required or forbidden product constraints, but do not add a port
 or teach FW an implementation name.
 
-## Ownership boundaries carried over from practice
+## Ownership boundaries
 
-These were learned in the reference desktop product and are contract-level,
-not implementation detail.
+These are contract-level, not implementation detail.
 
-- The workspace folder is authoritative. A product must not invent a second
-  content API in the view layer.
+- A selected workspace folder is authoritative. A product must not invent a
+  second content API in the view layer.
 - Host paths, process handles, and secrets never reach the presentation
   layer.
 - Agent runtimes are bridges behind a closed event bus. A vendor SDK is an
   adapter, never a core dependency.
-- Neighbouring processes (web server, database, sidecar) belong to a `pack`
-  adapter with an explicit lifecycle, ports, and logs.
+- Neighbouring processes belong to an adapter with an explicit lifecycle.
 - Where a platform does not expose a capability, the contract says so.
   Faking it is a defect, not a feature.

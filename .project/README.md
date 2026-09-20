@@ -13,10 +13,12 @@ of intent; the repository root README is the public summary.
 ## Working rules
 
 - English only in this repository.
-- Brand-neutral core: no customer, mascot, or product names in the contract.
-- No adapter code or product materializer lands here. This repository holds
-  schemas, spec, registry source, conformance, and documentation. `fwyml`
-  is the only CLI.
+- Brand-neutral core: no customer, mascot, product, or stack names in the
+  contract.
+- No adapter code, adapter pins, or product materializer lands here. This
+  repository holds schemas, port specs, capability records, conformance,
+  and documentation. `fwyml` is the only CLI. Adapter catalogs are
+  external.
 - A capability is not published until it has a conformance suite.
 - Prefer removing a port over weakening its invariants.
 

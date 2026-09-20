@@ -46,6 +46,5 @@ The lock records a digest for every owned output. A sync may delete an output
 that was owned by the previous lock only when its current digest matches that
 recorded value. A changed output is a conflict, never a deletion.
 
-The same `agent-chat-surface` contract may resolve to a Svelte or Solid
-artifact through adapter and slice data. FW does not import either
-framework.
+The same surface contract may resolve to different adapters through external
+registry data. FW does not import those implementations.

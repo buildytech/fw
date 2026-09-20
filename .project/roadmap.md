@@ -6,15 +6,10 @@ done.
 
 ## M0 — Extraction
 
-Harvest what is already proven in the reference desktop product and restate
-it as ports rather than code.
+Harvest proven product behavior and restate it as ports rather than code.
 
-Sources: workspace ownership and revision-checked writes, portable
-on-disk layout, build-time product composition, the closed agent event bus,
-and the native second view with its debug protocol.
-
-Deliverable: a written port draft for each of the above, plus an explicit
-list of what turned out to be implementation detail.
+Deliverable: a written port draft for each extracted contract, plus an
+explicit list of what turned out to be implementation detail.
 
 Exit: every draft states its six obligations, including non-obligations.
 
@@ -27,43 +22,32 @@ Deliverables:
 - `fw-spec` package with DTOs, events, and invariants
 - conformance harness over stdio/JSON-RPC
 - conformance suites for the three ports
-- two reference adapters per port, in two different languages
 
-Exit: a non-Go adapter passes `workspace` conformance without the core
-authors modifying the suite.
+Exit: an adapter the core authors did not write passes `workspace`
+conformance without modifying the suite.
 
 ## M2 — Schemas consumed by `fwyml`
 
 Publish the schemas and registry kinds that `fwyml` compiles. Materialization
-commands live only in `buildytech/fwyml`.
+commands live only in `buildytech/fwyml`. Adapter pins live only in an
+external registry.
 
 Deliverables:
 
 - product-manifest, registry-envelope, lock, and harness-result schemas
 - registry kinds for capability, adapter, generator, validator, guidance,
   vertical-slice, product-template, and delivery
-- two product-template records: a desktop host with a TypeScript UI runtime,
-  and a server-rendered host with a PHP UI runtime
 
-Exit: both templates resolve and build from a manifest through `fwyml` alone,
-and removing a capability from the manifest removes it from the generated
-tree. No document or package in this repository assigns those commands to an
-`fw` executable.
+Exit: a product resolves and builds from a manifest through `fwyml` plus an
+external registry alone, and removing a capability from the manifest
+removes it from the generated tree. No document or package in this
+repository assigns those commands to an `fw` executable.
 
 ## M3 — Validation by scenarios
 
 Prove modularity against real compositions rather than examples invented to
-fit the design.
-
-Scenarios:
-
-| Product | Capabilities present | Capabilities absent |
-| --- | --- | --- |
-| Workshop without assistance | workspace, ui, host, editor, explorer, vcs | agent |
-| Assisted workshop without browsing | workspace, ui, host, editor, agent | browse |
-| Assistant surface only | ui, host, agent, browse | editor, explorer |
-| Offline workshop | workspace, ui, host, editor, explorer | vcs, agent |
-| Theme studio with local stack | workspace, ui, host, pack, delivery | vcs, agent, terminal |
+fit the design. Product names stay in the external registry and the
+consumer repository.
 
 Exit: for each scenario, files of absent capabilities are not present in the
 product tree, the dependency manifest, or the delivered artifact. A grep for
@@ -71,28 +55,24 @@ the absent port name returns nothing outside documentation.
 
 ## M4 — Expansion
 
-Add `vcs`, `agent`, `browse`, and `pack` to the published contract.
+Publish additional ports only when each has a conformance suite.
 
-Deliverables: port documents, conformance suites, one adapter each, and a
-third adapter language introduced deliberately to expose hidden assumptions
-in the harness.
-
-Exit: the third language required no change to any existing port document.
+Exit: a third adapter language required no change to any existing port
+document.
 
 ## M5 — Publication
 
-Turn the repository into a product other teams can adopt.
+Turn the repository into a contract other teams can adopt.
 
 Deliverables:
 
 - documentation as the primary artifact, not an appendix
-- studio templates and a getting-started path
 - conformance badge and its publication format
 - an intake process for third-party adapters, including versioning rules
 
 Exit: an outside team ships a boxed product without reading core internals,
-and the reference desktop product is rebuilt as an ordinary consumer of the
-contract with no privileged access.
+and every consumer is an ordinary user of the contract with no privileged
+access.
 
 ## Standing risks
 
@@ -100,6 +80,7 @@ contract with no privileged access.
 | --- | --- |
 | The contract quietly encodes one language | third adapter language early, in M4 at the latest |
 | Conformance lags behind ports | no publication without a suite |
-| The reference product keeps special privileges | rebuild it as a plain consumer in M5 |
+| One product keeps special privileges | every consumer stays ordinary |
 | Scope creep into a vertical | verticals live in products, never in the core |
-| Modularity becomes flags again | M3 grep test is the acceptance gate |
+| Adapter pins return to this repository | external registry only |
+| Modularity becomes flags again | M3 absence test is the acceptance gate |

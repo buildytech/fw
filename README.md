@@ -4,13 +4,14 @@
 
 `fw` is a specification of product capabilities, registry records, and a
 conformance suite. A team describes a product declaratively; `fwyml` is the
-only CLI that compiles that manifest against this registry into a repository
-containing exactly the selected modules, implemented on the stack that team
-already knows.
+only CLI that compiles that manifest against an external registry into a
+repository containing exactly the selected modules, implemented on the stack
+that team already knows.
 
-This repository ships schemas, port specs, registry source, and conformance
-assets. It does not ship a materializer, a runtime plugin loader, a
-mandatory language, or an application with feature switches.
+This repository ships schemas, port specs, capability records, and
+conformance assets. It does not ship adapters, a materializer, a runtime
+plugin loader, a mandatory language, or an application with feature
+switches. Adapter pins and product catalogs live in an external registry.
 
 ## The rule that defines everything
 
@@ -59,5 +60,5 @@ and the generated lock.
 
 ## Status
 
-Planning. No CLI, no contract packages, no adapters yet. See the roadmap
-for the first milestone.
+Draft contracts. Schemas and port specs are in this repository. Adapter
+implementations and product catalogs are not.
