@@ -1,6 +1,19 @@
 schemaVersion: "0.1"
 kind: conformance-scenarios
 cases:
+  - id: neutral-materialization
+    observes:
+      - no implicit language files or package manifests
+      - no default successful build command
+      - copied binary artifacts retain their exact bytes
+      - unchanged binary outputs can be removed and modified ones conflict
+  - id: selected-tool-execution
+    observes:
+      - unavailable selected tools fail verification and generation
+      - preparation failure prevents the dependent command
+      - dependency tools execute before dependent tools
+      - dependency cycles and conflicts fail before mutation
+      - relative sources resolve from their declaring documents
   - id: host-lifecycle
     observes:
       - process start and stop

@@ -48,3 +48,25 @@ recorded value. A changed output is a conflict, never a deletion.
 
 The same surface contract may resolve to different adapters through external
 registry data. FW does not import those implementations.
+
+## Assembly obligations
+
+No language files or package manifests are implicit. A selected artifact may
+own a complete package manifest. A compiler may synthesize one only from
+explicit selected dependency declarations; Go synthesis requires a declared
+module and `go.version`. There is no default successful build command or
+language-specific identity file. Artifact bytes, including binary assets,
+must survive materialization and ownership hashing unchanged.
+
+Selected tools are required: a missing executable or failed preparation is a
+failure, never successful verification. Dependencies execute before their
+dependents; cycles and conflicts fail before mutation. Relative artifact paths
+belong to the registry document declaring the record. Manifest registry paths
+belong to the manifest directory.
+
+Migration: existing locks with implicit outputs fail replay after this change.
+Review the new plan and sync; unchanged former outputs may be removed using
+their old ownership digests. Modified outputs remain conflicts. Go records
+using synthesis must declare the module and language version, or supply a
+complete owned go.mod instead. These are corrections to experimental alpha
+composition behavior, not publication of a stable port.

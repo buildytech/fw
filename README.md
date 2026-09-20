@@ -60,5 +60,8 @@ and the generated lock.
 
 ## Status
 
+The [conveyor intake](.project/conveyor-intake.md) records the local baseline,
+implemented compiler corrections, and outstanding first-conveyor gates.
+
 Draft contracts. Schemas and port specs are in this repository. Adapter
 implementations and product catalogs are not.
